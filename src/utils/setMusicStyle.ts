@@ -1,10 +1,10 @@
-export default function setMusicStyle(value: number) {
+export default function setMusicStyle(temp: number) {
   let result = ''
-  if (value) {
-    if (value >= 32) result = 'rock'
-    if (value < 32 && value >= 24) result = 'pop'
-    if (value < 24 && value >= 16) result = 'musica classica'
-    if (value < 16) result = 'lofi'
+  if (temp) {
+    if (temp >= 32) result = 'rock'
+    if (temp < 32 && temp >= 24) result = 'pop'
+    if (temp < 24 && temp >= 16) result = 'musica classica'
+    if (temp < 16) result = 'lofi'
   }
   return result
 }
