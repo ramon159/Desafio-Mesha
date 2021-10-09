@@ -5,7 +5,6 @@ const baseURL = 'https://shazam.p.rapidapi.com/search'
 
 export const fetchTracks = async (genre: string) => {
   const apiKey = 'a88b66c4b7mshb4942feec9e3a9dp137aa8jsn55629e068e4f' // must be get of process.env, i know
-  console.log('Fetching Shazam')
 
   const response = await axios.get<IShazamData>(baseURL, {
     params: {
