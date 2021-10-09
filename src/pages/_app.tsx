@@ -6,14 +6,8 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Nephxlin boilerplate 2021</title>
-        <link rel="shortcut icon" href="/img/icon.png" />
-        <link rel="apple-touch-icon" href="/img/icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta
-          name="description"
-          content="Nephxlin new modern boilerplate - 2021"
-        />
+        <title>Desafio Mesha</title>
+        <meta name="description" content="Desafio - React - 2021" />
       </Head>
       <GlobalStyles />
       <Component {...pageProps} />

@@ -1,18 +1,27 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    html {
-        font-size: 62.5%;
-    }
+  body {
+    background: #7159c1;
+    -webkit-font-smoothing: antialiased !important;
+  }
 
-    body{
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+  html, body, #root {
+    min-height: 100%;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
 
 `

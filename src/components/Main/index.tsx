@@ -1,18 +1,27 @@
-import * as S from './styles'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
+// import GetTracks from 'components/GetTracks'
+import GetWeather from 'components/GetWeather'
+import ListMusic from 'components/ListMusic'
+import { IWeatherData } from 'api/weatherApi/IWeatherData'
 
-const Main = ({
-  title = 'Nephxlin',
-  description = 'Typescript, NextJs, ReactJs & styled-components'
-}) => (
-  <S.Wrapper>
-    <S.Logo src="/img/logo.svg" alt="Imagem de apresentação do template" />
-    <S.Title>{title}</S.Title>
-    <S.Description>{description}</S.Description>
-    <S.Illustration
-      src="/img/hero-illustration.svg"
-      alt="capa do boilerplate"
-    />
-  </S.Wrapper>
-)
+function Main() {
+  const [weather, setWeather] = useState<IWeatherData>()
+
+  useEffect(() => {
+    async function getItems() {
+      const weatherData = await GetWeather('Rio de janeiro')
+      setWeather(weatherData)
+    }
+    getItems()
+  }, [])
+
+  return (
+    <div>
+      {weather ? <h1>{Math.round(weather.main.temp)} C°</h1> : null}
+      {weather ? <ListMusic temp={weather.main.temp} /> : null}
+    </div>
+  )
+}
 
 export default Main
