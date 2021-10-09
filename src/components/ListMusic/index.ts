@@ -24,7 +24,7 @@ const ListMusic = (city: string) => {
     getItems()
   }, [city])
 
-  // set weather, and music style
+  // set weather tracks
   useEffect(() => {
     async function getItems() {
       if (musicStyle) {
