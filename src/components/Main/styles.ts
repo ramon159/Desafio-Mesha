@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
 // export const Wrapper = styled.main`
 //   color: #fff;
@@ -6,6 +6,7 @@ import styled from 'styled-components'
 //   height: 100%;
 
 // `
+
 export const Container = styled.div`
   min-width: 400px;
   width: 90vw;
@@ -28,6 +29,7 @@ export const Title = styled.h1`
   font-size: 2.5rem;
   margin: 0 auto;
 `
+
 export const Form = styled.form`
   width: 100%;
   max-width: 400px;
@@ -42,6 +44,18 @@ export const Form = styled.form`
     font-size: 16px;
   }
 `
+// interface ISubmitButtonProps {
+//   loading: boolean
+// }
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to{
+    transform: rotate(360deg);
+  }
+`
 export const SubmitButton = styled.button.attrs({
   type: 'submit'
 })`
@@ -50,4 +64,36 @@ export const SubmitButton = styled.button.attrs({
   border: 0;
   padding: 0 1.25rem;
   margin-left: 0.5rem;
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  ${(props) =>
+    props.disabled &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
+`
+export const List = styled.ul`
+  font-size: 1.5rem;
+  list-style: none;
+  width: 100%;
+  margin-top: 30px;
+
+  li {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    & + li {
+      border-top: 1px solid #eee;
+    }
+    a {
+      color: '#cb208e';
+      font-size: 1.2rem;
+    }
+  }
 `

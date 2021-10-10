@@ -4,6 +4,8 @@ import { IPlaylist } from 'components/Playlist'
 interface PropsPlaylistCollectionContext {
   playlistCollection: IPlaylist[]
   setPlaylistCollection: React.Dispatch<React.SetStateAction<IPlaylist[]>>
+  // savePlaylist: (playlist: IPlaylist) => void
+  // removePlaylist: (dateSearch: Date) => void
 }
 
 export const PlaylistCollectionContext = createContext(
@@ -13,21 +15,17 @@ export const PlaylistCollectionContext = createContext(
 export const PlaylistCollectionProvider = () => {
   const [playlistCollection, setPlaylistCollection] = useState<IPlaylist[]>([])
 
-  const savePlaylist = (playlist: IPlaylist) => {
-    const newPlaylist: IPlaylist = playlist
-    setPlaylistCollection([...playlistCollection, newPlaylist])
-  }
+  // function savePlaylist(playlist: IPlaylist) {
+  //   const newPlaylist: IPlaylist = playlist
+  //   setPlaylistCollection([...playlistCollection, newPlaylist])
+  // }
 
-  const removePlaylist = (dateSearch: Date) => {
-    const newCollectionPlaylist = playlistCollection.filter(
-      (playlist: IPlaylist) => {
-        if (playlist.dateSearch !== dateSearch) {
-          return playlist
-        }
-      }
-    )
-    setPlaylistCollection([...newCollectionPlaylist])
-  }
+  // function removePlaylist(dateSearch: Date) {
+  //   const filteredCollectionPlaylist = playlistCollection.filter(
+  //     (playlist: IPlaylist) => playlist.dateSearch !== dateSearch
+  //   )
+  //   setPlaylistCollection([...filteredCollectionPlaylist])
+  // }
   return (
     <PlaylistCollectionContext.Provider
       value={{ playlistCollection, setPlaylistCollection }}

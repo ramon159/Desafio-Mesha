@@ -1,18 +1,35 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import * as S from './styles'
-import { FaPlus } from 'react-icons/fa'
+import { FaPlus, FaSpinner } from 'react-icons/fa'
 import setGenre from 'utils/setMusicStyle'
 import { fetchWeather } from 'api/weatherApi'
 import { fetchTracks } from 'api/shazamApi'
 import { Playlist, IPlaylist } from 'components/Playlist'
 import cities from 'mock/cities'
-import { PlaylistCollectionContext } from 'context/PlaylistCollectionContext'
+import Link from 'next/link'
 
-// import ListMusic from 'components/ListMusic'
 function Main() {
   const [newCity, setNewCity] = useState<string>('')
-  // const [loading, setLoading] = useState(true)
-  const [playlist, setPlaylist] = useState<IPlaylist>()
+  const [loading, setLoading] = useState(false)
+  // const [playlist, setPlaylist] = useState<IPlaylist>()
+  const [playlistCollection, setPlaylistCollection] = useState<IPlaylist[]>([])
+
+  useEffect(() => {
+    const playlists = localStorage.getItem('playlistCollection')
+    if (playlists) {
+      setPlaylistCollection(JSON.parse(playlists))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (playlistCollection) {
+      localStorage.setItem(
+        'playlistCollection',
+        JSON.stringify(playlistCollection)
+      )
+    }
+  }, [playlistCollection])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCity(event.target.value)
@@ -21,6 +38,7 @@ function Main() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (newCity) {
+      setLoading(true)
       const { data: weather } = await fetchWeather(newCity)
 
       // round celsius
@@ -31,13 +49,15 @@ function Main() {
       const musicStyle = setGenre(weather.main.temp)
 
       const { data: tracks } = await fetchTracks(musicStyle)
-      setPlaylist(Playlist({ dateSearch, musicStyle, weather, tracks }))
+      const newPlaylist = Playlist({ dateSearch, musicStyle, weather, tracks })
+      // setPlaylist(newPlaylist)
+      setPlaylistCollection([...playlistCollection, newPlaylist])
+      setLoading(false)
     }
   }
-  if (playlist) console.log(playlist)
   return (
     <S.Container>
-      <S.Title>Desafio Mesha</S.Title>
+      <S.Title>Playlists de musicas - Desafio Mesha</S.Title>
       <S.Form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -52,10 +72,29 @@ function Main() {
             <option key={city} value={city} />
           ))}
         </datalist>
-        <S.SubmitButton>
-          <FaPlus size={14} />
+        <S.SubmitButton disabled={loading}>
+          {loading ? <FaSpinner size={14} /> : <FaPlus size={14} />}
         </S.SubmitButton>
       </S.Form>
+
+      {playlistCollection ? console.log(playlistCollection) : null}
+      <S.List>
+        {playlistCollection !== [] && playlistCollection
+          ? playlistCollection.map((playlist, index) => (
+              <li key={index}>
+                <p>
+                  <small>{index + 1}.</small> Playlist de {playlist.musicStyle}{' '}
+                  - {playlist.weather.name} ({playlist.weather.main.temp}°C)
+                </p>
+                <span>
+                  <Link href={`playlist/${index}`}>
+                    <a>Ver playlist</a>
+                  </Link>
+                </span>
+              </li>
+            ))
+          : null}
+      </S.List>
     </S.Container>
   )
 }

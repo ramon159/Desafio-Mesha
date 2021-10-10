@@ -3,6 +3,9 @@ export interface IShazamData {
     hits: {
       track: {
         title: string
+        images: {
+          background: string
+        }
         subtitle: string
         url: string
         key: string
