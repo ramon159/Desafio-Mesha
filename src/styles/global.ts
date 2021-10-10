@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background: #7159c1;
+    background: linear-gradient(#cb208e, #6c14cf);
     -webkit-font-smoothing: antialiased !important;
   }
 
@@ -22,6 +22,9 @@ export const GlobalStyles = createGlobalStyle`
 
   body{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  button {
+    cursor: pointer;
   }
 
 `
