@@ -47,8 +47,7 @@ function Playlist() {
       setPlaylist(parsedPlaylists[Number(id)])
       console.log(parsedPlaylists)
     }
-  }, [])
-  console.log(playlist)
+  }, [id])
 
   return (
     <S.Container>
